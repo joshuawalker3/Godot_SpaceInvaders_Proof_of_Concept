@@ -1,17 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://chjka32bbqw2"]
+[gd_scene load_steps=5 format=3 uid="uid://chjka32bbqw2"]
 
 [ext_resource type="PackedScene" uid="uid://shubjmwcw3f8" path="res://player.tscn" id="1_avii2"]
 [ext_resource type="Script" path="res://main.gd" id="1_ffe1r"]
 [ext_resource type="PackedScene" uid="uid://ckemt1nqq3trr" path="res://projectile_default.tscn" id="2_yx5sp"]
+[ext_resource type="PackedScene" uid="uid://b5j20b0uvqbdj" path="res://enemy.tscn" id="3_1borl"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_ffe1r")
 projectile_scene = ExtResource("2_yx5sp")
+enemy_scene = ExtResource("3_1borl")
 
 [node name="Player" parent="." instance=ExtResource("1_avii2")]
 
 [node name="StartingPosition" type="Marker2D" parent="."]
 position = Vector2(384, 672)
+
+[node name="EnemySpawnStart" type="Marker2D" parent="."]
+position = Vector2(35, 35)
 
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]

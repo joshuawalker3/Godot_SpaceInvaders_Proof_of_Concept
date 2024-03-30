@@ -19,6 +19,7 @@ size = Vector2(12, 38)
 
 [node name="ProjectileDefault" type="Area2D" groups=["projectiles"]]
 script = ExtResource("1_gmlbg")
+metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.1, 0.3)

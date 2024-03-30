@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5j20b0uvqbdj"]
+
+[ext_resource type="Script" path="res://Enemy.gd" id="1_sclmv"]
+[ext_resource type="Texture2D" uid="uid://u58sp8g8njbg" path="res://icon.svg" id="2_p1554"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pfpwk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_p1554")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mmfvg"]
+size = Vector2(64, 64)
+
+[node name="Enemy" type="Area2D"]
+script = ExtResource("1_sclmv")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_pfpwk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_mmfvg")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="change_direction" from="." to="." method="_on_change_direction"]
