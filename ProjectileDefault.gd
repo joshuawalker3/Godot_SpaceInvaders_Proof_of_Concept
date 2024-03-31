@@ -1,4 +1,4 @@
-extends Area2D
+extends RigidBody2D
 
 var speed
 var screen_size
@@ -6,7 +6,7 @@ var screen_size
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
-	speed = -screen_size.y
+	speed = -screen_size.y / 10
 	$CollisionShape2D.disabled = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -20,3 +20,7 @@ func _process(delta):
 func spawn_position(pos):
 	position.x = pos.x
 	position.y = pos.y - 50
+
+
+func _on_body_entered(body):
+	print("Enemy hit")

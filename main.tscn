@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://shubjmwcw3f8" path="res://player.tscn" id="1_avii2"]
 [ext_resource type="Script" path="res://main.gd" id="1_ffe1r"]
-[ext_resource type="PackedScene" uid="uid://ckemt1nqq3trr" path="res://projectile_default.tscn" id="2_yx5sp"]
-[ext_resource type="PackedScene" uid="uid://b5j20b0uvqbdj" path="res://enemy.tscn" id="3_1borl"]
+[ext_resource type="PackedScene" uid="uid://b4yy2kxl1s8bu" path="res://projectile_default.tscn" id="2_yx5sp"]
+[ext_resource type="PackedScene" uid="uid://bm14neey541nd" path="res://enemy.tscn" id="3_1borl"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_ffe1r")
@@ -13,7 +13,7 @@ enemy_scene = ExtResource("3_1borl")
 [node name="Player" parent="." instance=ExtResource("1_avii2")]
 
 [node name="StartingPosition" type="Marker2D" parent="."]
-position = Vector2(384, 672)
+position = Vector2(960, 1080)
 
 [node name="EnemySpawnStart" type="Marker2D" parent="."]
 position = Vector2(35, 35)

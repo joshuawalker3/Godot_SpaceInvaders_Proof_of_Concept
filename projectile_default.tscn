@@ -1,9 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://ckemt1nqq3trr"]
+[gd_scene load_steps=5 format=3 uid="uid://b4yy2kxl1s8bu"]
 
 [ext_resource type="Script" path="res://ProjectileDefault.gd" id="1_gmlbg"]
 [ext_resource type="Texture2D" uid="uid://u58sp8g8njbg" path="res://icon.svg" id="2_3m8e5"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_1y184"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_v1xlg"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -14,16 +14,16 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_y7rm1"]
-size = Vector2(12, 38)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1esbi"]
+size = Vector2(124, 131)
 
-[node name="ProjectileDefault" type="Area2D" groups=["projectiles"]]
+[node name="ProjectileDefault" type="RigidBody2D"]
+gravity_scale = 0.0
 script = ExtResource("1_gmlbg")
-metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.1, 0.3)
-sprite_frames = SubResource("SpriteFrames_1y184")
+sprite_frames = SubResource("SpriteFrames_v1xlg")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_y7rm1")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["projectiles"]]
+position = Vector2(-1, 0.5)
+shape = SubResource("RectangleShape2D_1esbi")

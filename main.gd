@@ -28,7 +28,7 @@ func _on_player_shoot():
 		projectile_spawn_location.x = $Player.position.x
 		projectile_spawn_location.y = $Player.position.y - 50
 	
-		projectile.spawn_position(projectile_spawn_location)
+		projectile.spawn_position(projectile_spawn_location) 
 	
 		add_child(projectile)
 	

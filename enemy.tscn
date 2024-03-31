@@ -1,9 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5j20b0uvqbdj"]
+[gd_scene load_steps=5 format=3 uid="uid://bm14neey541nd"]
 
 [ext_resource type="Script" path="res://Enemy.gd" id="1_sclmv"]
 [ext_resource type="Texture2D" uid="uid://u58sp8g8njbg" path="res://icon.svg" id="2_p1554"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_pfpwk"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_8cr2f"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -14,19 +14,19 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mmfvg"]
-size = Vector2(64, 64)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6tgw8"]
+size = Vector2(64, 63)
 
-[node name="Enemy" type="Area2D"]
+[node name="Enemy" type="RigidBody2D"]
+gravity_scale = 0.0
 script = ExtResource("1_sclmv")
-metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
-sprite_frames = SubResource("SpriteFrames_pfpwk")
+sprite_frames = SubResource("SpriteFrames_8cr2f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_mmfvg")
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_6tgw8")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="change_direction" from="." to="." method="_on_change_direction"]
