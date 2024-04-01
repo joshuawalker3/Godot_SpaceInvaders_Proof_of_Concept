@@ -1,6 +1,6 @@
-extends RigidBody2D
+extends CharacterBody2D
 
-var speed = 10
+var speed = 400
 var direction = 1
 var screen_size
 
@@ -11,12 +11,8 @@ signal destroyed
 func _ready():
 	$AnimatedSprite2D.play()
 	screen_size = get_viewport_rect().size
-	set_continuous_collision_detection_mode(0)
-	position.y = 500
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	var minBuffer = Vector2.ZERO
 	var maxBuffer = Vector2.ZERO
 	
@@ -44,6 +40,9 @@ func spawn_enemy(pos):
 	$CollisionShape2D.disabled = false
 	
 
-
-func _on_body_entered(body):
-	print("HIT")
+func _on_area_2d_body_entered(body):
+	if body.name == "ProjectileFriendly":
+		body.queue_free()
+		print("Enemy and projectile hit detected")
+		destroyed.emit()
+		queue_free()
