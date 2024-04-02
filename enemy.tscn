@@ -20,7 +20,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kono0"]
 size = Vector2(70, 70)
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" groups=["Enemies"]]
 script = ExtResource("1_jaduo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -32,8 +32,7 @@ sprite_frames = SubResource("SpriteFrames_n84ld")
 
 [node name="Area2D" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["Enemies"]]
 shape = SubResource("RectangleShape2D_kono0")
 
-[connection signal="change_direction" from="." to="." method="_on_change_direction"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

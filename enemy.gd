@@ -1,8 +1,9 @@
 extends CharacterBody2D
 
-var speed = 400
+var speed = 200
 var direction = 1
 var screen_size
+var temp_speed
 
 signal change_direction
 signal destroyed
@@ -27,7 +28,7 @@ func _physics_process(delta):
 	
 	position = position.clamp(minBuffer, maxBuffer)
 	
-	if unclamped_x_position != position.x:
+	if position.x + (speed * direction * delta) >= maxBuffer.x or position.x + (speed * direction * delta) <= minBuffer.x:
 		change_direction.emit()
 
 func _on_change_direction():
@@ -39,6 +40,12 @@ func spawn_enemy(pos):
 	show()
 	$CollisionShape2D.disabled = false
 	
+func pause_movement():
+	temp_speed = speed
+	speed = 0
+	
+func resume_movement():
+	speed = temp_speed
 
 func _on_area_2d_body_entered(body):
 	if body.name == "ProjectileFriendly":

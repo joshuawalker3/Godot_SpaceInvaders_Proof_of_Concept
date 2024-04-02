@@ -42,7 +42,7 @@ func start(pos):
 	$CollisionShape2D.disabled = false
 
 func _on_area_2d_body_entered(body):
-	if body.name == "Enemy":
+	if body.get_groups().find("Enemies") != -1:
 		hide() 
 		hit.emit()
 		print("player collision with enemy detected")

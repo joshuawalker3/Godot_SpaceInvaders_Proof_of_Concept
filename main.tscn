@@ -18,5 +18,9 @@ position = Vector2(576, 648)
 [node name="EnemySpawnStart" type="Marker2D" parent="."]
 position = Vector2(35, 35)
 
+[node name="DirectionTimer" type="Timer" parent="."]
+wait_time = 0.2
+
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
+[connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]
