@@ -16,7 +16,7 @@ func _process(delta):
 
 func new_game():
 	$Player.start($StartingPosition.position)
-	spawn_enemies(2, $EnemySpawnStart.position)
+	spawn_enemies(5, $EnemySpawnStart.position)
 
 
 func game_over():
@@ -36,11 +36,11 @@ func _on_player_shoot():
 	
 func spawn_enemies(rows, start_position):
 	for i in rows:
-		for ii in 8:
+		for ii in 14:
 			var enemy = enemy_scene.instantiate()
 			var enemy_position = Vector2()
 			enemy_position.y = start_position.y
-			enemy_position.x = start_position.x + 140 * ii
+			enemy_position.x = start_position.x + 75 * ii
 			enemy.spawn_enemy(enemy_position)
 			if (!enemy.destroyed.is_connected(_on_enemy_destroyed)):
 				#Connect signal from enemy
