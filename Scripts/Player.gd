@@ -40,10 +40,10 @@ func start(pos):
 	position = pos
 	show()
 	$CollisionShape2D.disabled = false
+	
+	
 
 func _on_area_2d_body_entered(body):
-	if body.get_groups().find("Enemies") != -1:
-		hide() 
+	if body.get_groups().find("Enemies") != -1 and $HitTimer.get_time_left() == 0:
 		hit.emit()
-		print("player collision with enemy detected")
-		$CollisionShape2D.set_deferred("disabled", true)
+		$HitTimer.start()

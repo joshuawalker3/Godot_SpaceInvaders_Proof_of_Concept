@@ -1,14 +1,14 @@
 [gd_scene load_steps=5 format=3 uid="uid://chjka32bbqw2"]
 
-[ext_resource type="PackedScene" uid="uid://cdf2407wdosc0" path="res://player.tscn" id="1_avii2"]
-[ext_resource type="Script" path="res://main.gd" id="1_ffe1r"]
-[ext_resource type="PackedScene" uid="uid://r3xextu2eejk" path="res://projectile_friendly.tscn" id="2_a5j7d"]
-[ext_resource type="PackedScene" uid="uid://b6rbkk24oxijj" path="res://enemy.tscn" id="3_1borl"]
+[ext_resource type="PackedScene" uid="uid://cdf2407wdosc0" path="res://Scenes/player.tscn" id="1_avii2"]
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_ffe1r"]
+[ext_resource type="PackedScene" uid="uid://r3xextu2eejk" path="res://Scenes/projectile_friendly.tscn" id="2_a5j7d"]
+[ext_resource type="PackedScene" uid="uid://b6rbkk24oxijj" path="res://Scenes/enemy.tscn" id="3_1borl"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_ffe1r")
-projectile_scene = ExtResource("2_a5j7d")
 enemy_scene = ExtResource("3_1borl")
+projectile_scene = ExtResource("2_a5j7d")
 
 [node name="Player" parent="." instance=ExtResource("1_avii2")]
 
@@ -19,7 +19,7 @@ position = Vector2(576, 648)
 position = Vector2(35, 35)
 
 [node name="DirectionTimer" type="Timer" parent="."]
-wait_time = 0.2
+wait_time = 0.1
 
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="shoot" from="Player" to="." method="_on_player_shoot"]

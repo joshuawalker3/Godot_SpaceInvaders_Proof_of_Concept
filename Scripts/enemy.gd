@@ -1,9 +1,8 @@
 extends CharacterBody2D
 
-var speed = 200
+var speed = 100
 var direction = 1
 var screen_size
-var temp_speed
 
 signal change_direction
 signal destroyed
@@ -41,11 +40,11 @@ func spawn_enemy(pos):
 	$CollisionShape2D.disabled = false
 	
 func pause_movement():
-	temp_speed = speed
 	speed = 0
 	
-func resume_movement():
-	speed = temp_speed
+func increment_speed(total_enemy_count, enemy_count):
+	speed += 10 + 2 * total_enemy_count / enemy_count
+	print(speed)
 
 func _on_area_2d_body_entered(body):
 	if body.name == "ProjectileFriendly":

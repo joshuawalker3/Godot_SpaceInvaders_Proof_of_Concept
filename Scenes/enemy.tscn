@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b6rbkk24oxijj"]
 
-[ext_resource type="Script" path="res://enemy.gd" id="1_jaduo"]
-[ext_resource type="Texture2D" uid="uid://u58sp8g8njbg" path="res://icon.svg" id="2_p1554"]
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_jaduo"]
+[ext_resource type="Texture2D" uid="uid://u58sp8g8njbg" path="res://Assets/icon.svg" id="2_exsk0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mucqw"]
 size = Vector2(64, 64)
@@ -10,7 +10,7 @@ size = Vector2(64, 64)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_p1554")
+"texture": ExtResource("2_exsk0")
 }],
 "loop": true,
 "name": &"default",
