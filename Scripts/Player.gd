@@ -47,3 +47,6 @@ func _on_area_2d_body_entered(body):
 	if body.get_groups().find("Enemies") != -1 and $HitTimer.get_time_left() == 0:
 		hit.emit()
 		$HitTimer.start()
+	if body.get_groups().find("enemy_projectiles") != -1 and $HitTimer.get_time_left() == 0:
+		hit.emit()
+		$HitTimer.start()

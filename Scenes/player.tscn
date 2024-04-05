@@ -37,5 +37,6 @@ shape = SubResource("RectangleShape2D_6r20e")
 
 [node name="HitTimer" type="Timer" parent="."]
 wait_time = 0.1
+one_shot = true
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

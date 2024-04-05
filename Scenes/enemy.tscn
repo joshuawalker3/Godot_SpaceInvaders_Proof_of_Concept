@@ -35,4 +35,10 @@ sprite_frames = SubResource("SpriteFrames_n84ld")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["Enemies"]]
 shape = SubResource("RectangleShape2D_kono0")
 
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 100)
+
+[node name="ShotTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

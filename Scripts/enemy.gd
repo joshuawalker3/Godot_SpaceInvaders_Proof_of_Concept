@@ -3,6 +3,8 @@ extends CharacterBody2D
 var speed = 100
 var direction = 1
 var screen_size
+var rng = RandomNumberGenerator.new()
+var projectile = preload("res://Scenes/enemy_projectile.tscn")
 
 signal change_direction
 signal destroyed
@@ -29,6 +31,12 @@ func _physics_process(delta):
 	
 	if position.x + (speed * direction * delta) >= maxBuffer.x or position.x + (speed * direction * delta) <= minBuffer.x:
 		change_direction.emit()
+	
+	var number = rng.randi_range(0, 100)
+	
+	if (number == 50 and !$RayCast2D.is_colliding() and $ShotTimer.get_time_left() == 0):
+		shoot_projectile()
+		$ShotTimer.start()
 
 func _on_change_direction():
 	direction = -direction
@@ -44,11 +52,17 @@ func pause_movement():
 	
 func increment_speed(total_enemy_count, enemy_count):
 	speed += 10 + 2 * total_enemy_count / enemy_count
-	print(speed)
+	#print(speed)
 
 func _on_area_2d_body_entered(body):
 	if body.name == "ProjectileFriendly":
 		body.queue_free()
-		print("Enemy and projectile hit detected")
+		#print("Enemy and projectile hit detected")
 		destroyed.emit()
 		queue_free()
+		
+func shoot_projectile():
+	#print("Projectile shot")
+	var projectile_instance = projectile.instantiate()
+	projectile_instance.spawn_position(position)
+	get_tree().get_root().call_deferred("add_child", projectile_instance)
