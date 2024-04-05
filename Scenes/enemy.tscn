@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b6rbkk24oxijj"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_jaduo"]
-[ext_resource type="Texture2D" uid="uid://u58sp8g8njbg" path="res://Assets/icon.svg" id="2_exsk0"]
+[ext_resource type="Texture2D" uid="uid://b02pnty4ekg6" path="res://Assets/enemy fly.png" id="2_fo063"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mucqw"]
 size = Vector2(64, 64)
@@ -10,10 +10,10 @@ size = Vector2(64, 64)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_exsk0")
+"texture": ExtResource("2_fo063")
 }],
 "loop": true,
-"name": &"default",
+"name": &"new_animation",
 "speed": 5.0
 }]
 
@@ -29,6 +29,7 @@ shape = SubResource("RectangleShape2D_mucqw")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_n84ld")
+animation = &"new_animation"
 
 [node name="Area2D" type="Area2D" parent="."]
 

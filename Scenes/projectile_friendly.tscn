@@ -1,28 +1,33 @@
 [gd_scene load_steps=5 format=3 uid="uid://r3xextu2eejk"]
 
 [ext_resource type="Script" path="res://Scripts/projectile_friendly.gd" id="1_d136w"]
-[ext_resource type="Texture2D" uid="uid://u58sp8g8njbg" path="res://Assets/icon.svg" id="2_7gw6m"]
+[ext_resource type="Texture2D" uid="uid://bxbc08ihlfkyi" path="res://Assets/friendly projectile.png" id="2_tm8ts"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1rcd2"]
-size = Vector2(13, 64)
+size = Vector2(13, 27)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_i7hym"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_7gw6m")
+"texture": ExtResource("2_tm8ts")
 }],
 "loop": true,
-"name": &"default",
+"name": &"new_animation",
 "speed": 5.0
 }]
 
 [node name="ProjectileFriendly" type="CharacterBody2D" groups=["friendly_projectiles"]]
+position = Vector2(-2, 24)
 script = ExtResource("1_d136w")
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-5.5, -6.5)
 shape = SubResource("RectangleShape2D_1rcd2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.1, 0.5)
+position = Vector2(0.170319, 0)
+scale = Vector2(1.83843, 1.83203)
 sprite_frames = SubResource("SpriteFrames_i7hym")
+animation = &"new_animation"

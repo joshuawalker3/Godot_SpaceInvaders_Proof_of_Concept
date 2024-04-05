@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cdf2407wdosc0"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_0tg83"]
-[ext_resource type="Texture2D" uid="uid://u58sp8g8njbg" path="res://Assets/icon.svg" id="2_8lqwb"]
+[ext_resource type="Texture2D" uid="uid://dnl2qjuje8qya" path="res://Assets/friendly firefly.png" id="2_6ik55"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r6x5u"]
 size = Vector2(64, 64)
@@ -10,10 +10,10 @@ size = Vector2(64, 64)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_8lqwb")
+"texture": ExtResource("2_6ik55")
 }],
 "loop": true,
-"name": &"default",
+"name": &"new_animation",
 "speed": 5.0
 }]
 
@@ -29,6 +29,7 @@ shape = SubResource("RectangleShape2D_r6x5u")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_tmldg")
+animation = &"new_animation"
 
 [node name="Area2D" type="Area2D" parent="."]
 

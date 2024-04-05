@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://3obw8rnu560k"]
+
+[ext_resource type="PackedScene" uid="uid://b6rbkk24oxijj" path="res://Scenes/enemy.tscn" id="1_euahq"]
+[ext_resource type="PackedScene" uid="uid://cqvojtdtvrun6" path="res://Scenes/enemy_projectile.tscn" id="2_bxek0"]
+[ext_resource type="PackedScene" uid="uid://cdf2407wdosc0" path="res://Scenes/player.tscn" id="3_2r47e"]
+[ext_resource type="PackedScene" uid="uid://r3xextu2eejk" path="res://Scenes/projectile_friendly.tscn" id="4_f3dvj"]
+
+[node name="Size Comparison" type="Node"]
+
+[node name="Enemy" parent="." instance=ExtResource("1_euahq")]
+
+[node name="EnemyProjectile" parent="." instance=ExtResource("2_bxek0")]
+position = Vector2(3, 86)
+
+[node name="Player" parent="." instance=ExtResource("3_2r47e")]
+position = Vector2(1, 296)
+
+[node name="ProjectileFriendly" parent="." instance=ExtResource("4_f3dvj")]
+position = Vector2(5, 242)
