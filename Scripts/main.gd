@@ -3,40 +3,35 @@ extends Node
 var score = 0
 @export var enemy_scene: PackedScene
 @export var projectile_scene: PackedScene
-var screen_size
+#var screen_size
 var enemy_count = 0
 var total_enemy_count = 0 
+var level = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	screen_size = get_viewport().get_visible_rect().size
-	new_game()
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
 func new_game():
+	score = 0
+	$HUD.update_score(score)
 	$Player.start($StartingPosition.position)
 	spawn_enemies(3, $EnemySpawnStart.position)
 
 
 func game_over():
-	get_tree().call_group_flags(2,"Enemies", "pause_movement")
-	$Player.queue_free()
-	print("Game over")
+	$Player.hide()
+	$Player.disable_shoot()
+	get_tree().call_group_flags(1,"Enemies", "pause_movement")
+	get_tree().call_group_flags(1,"friendly_projectiles", "queue_free")
+	await get_tree().create_timer(1.0).timeout
+	get_tree().call_group_flags(1,"Enemies", "queue_free")
+	$HUD.show_game_over()
 	
-func _on_player_shoot():
-	if get_tree().get_nodes_in_group("friendly_projectiles").size() == 0:
-		var projectile = projectile_scene.instantiate()
-	
-		var projectile_spawn_location = Vector2.ZERO
-	
-		projectile.spawn_position($Player.position) 
-		
-		#print(projectile.name)
-	
-		add_child(projectile)
 
 func spawn_enemies(rows, start_position):
 	for i in rows:
@@ -45,7 +40,7 @@ func spawn_enemies(rows, start_position):
 			var enemy_position = Vector2()
 			enemy_position.y = start_position.y
 			enemy_position.x = start_position.x + 90 * ii
-			enemy.spawn_enemy(enemy_position)
+			enemy.spawn_enemy(enemy_position, level)
 			if (!enemy.destroyed.is_connected(_on_enemy_destroyed)):
 				#Connect signal from enemy
 				enemy.destroyed.connect(_on_enemy_destroyed)
@@ -62,7 +57,7 @@ func _on_enemy_destroyed():
 	enemy_count -= 1
 	if enemy_count > 0:
 		get_tree().call_group_flags(2,"Enemies", "increment_speed", total_enemy_count, enemy_count)
-	print(score)
+	$HUD.update_score(score)
 	
 	
 func _on_enemy_change_direction():
@@ -73,3 +68,8 @@ func _on_enemy_change_direction():
 
 func _on_direction_timer_timeout():
 	$DirectionTimer.stop()
+
+func _on_hud_start_game():
+	$HUD.show_message("Get Ready")
+	await get_tree().create_timer(1.0).timeout
+	new_game() 

@@ -1,9 +1,10 @@
 extends CharacterBody2D
 
-var speed = 100
+var speed
 var direction = 1
 var screen_size
 var rng = RandomNumberGenerator.new()
+var rng_multiplier
 var projectile = preload("res://Scenes/enemy_projectile.tscn")
 
 signal change_direction
@@ -32,7 +33,7 @@ func _physics_process(delta):
 	if position.x + (speed * direction * delta) >= maxBuffer.x or position.x + (speed * direction * delta) <= minBuffer.x:
 		change_direction.emit()
 	
-	var number = rng.randi_range(0, 100)
+	var number = rng.randi_range(0, 1000 / rng_multiplier)
 	
 	if (number == 50 and !$RayCast2D.is_colliding() and $ShotTimer.get_time_left() == 0):
 		shoot_projectile()
@@ -42,8 +43,10 @@ func _on_change_direction():
 	direction = -direction
 	position.y += 20
 	
-func spawn_enemy(pos):
+func spawn_enemy(pos, level):
 	position = pos
+	rng_multiplier = level
+	speed = level * 100
 	show()
 	$CollisionShape2D.disabled = false
 	

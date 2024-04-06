@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://chjka32bbqw2"]
+[gd_scene load_steps=6 format=3 uid="uid://chjka32bbqw2"]
 
 [ext_resource type="PackedScene" uid="uid://cdf2407wdosc0" path="res://Scenes/player.tscn" id="1_avii2"]
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_ffe1r"]
 [ext_resource type="PackedScene" uid="uid://r3xextu2eejk" path="res://Scenes/projectile_friendly.tscn" id="2_a5j7d"]
 [ext_resource type="PackedScene" uid="uid://b6rbkk24oxijj" path="res://Scenes/enemy.tscn" id="3_1borl"]
+[ext_resource type="PackedScene" uid="uid://c84nvv6abi1gl" path="res://Scenes/hud.tscn" id="5_bby64"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_ffe1r")
@@ -21,6 +22,8 @@ position = Vector2(35, 35)
 [node name="DirectionTimer" type="Timer" parent="."]
 wait_time = 0.1
 
+[node name="HUD" parent="." instance=ExtResource("5_bby64")]
+
 [connection signal="hit" from="Player" to="." method="game_over"]
-[connection signal="shoot" from="Player" to="." method="_on_player_shoot"]
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]
+[connection signal="start_game" from="HUD" to="." method="_on_hud_start_game"]

@@ -2,12 +2,15 @@ extends CharacterBody2D
 
 const SPEED = 600.0
 var screen_size
+var shoot_enabled = true
+var projectile = preload("res://Scenes/projectile_friendly.tscn")
 
 signal hit
 signal shoot
 
 func _ready():
 	screen_size = get_viewport_rect().size
+	hide()
 
 func _physics_process(delta):
 	var direction = 0
@@ -39,9 +42,14 @@ func _physics_process(delta):
 func start(pos):
 	position = pos
 	show()
+	shoot_enabled = true
 	$CollisionShape2D.disabled = false
+
+func disable_shoot():
+	shoot_enabled = false
 	
-	
+func get_shoot_enabled():
+	return shoot_enabled
 
 func _on_area_2d_body_entered(body):
 	if body.get_groups().find("Enemies") != -1 and $HitTimer.get_time_left() == 0:
@@ -50,3 +58,15 @@ func _on_area_2d_body_entered(body):
 	if body.get_groups().find("enemy_projectiles") != -1 and $HitTimer.get_time_left() == 0:
 		hit.emit()
 		$HitTimer.start()
+
+func _on_player_shoot():
+	if get_tree().get_nodes_in_group("friendly_projectiles").size() == 0 and shoot_enabled:
+		var projectile_instance = projectile.instantiate()
+	
+		var projectile_spawn_location = Vector2.ZERO
+	
+		projectile_instance.spawn_position(position) 
+		
+		#print(projectile.name)
+	
+		get_tree().get_root().call_deferred("add_child", projectile_instance)
