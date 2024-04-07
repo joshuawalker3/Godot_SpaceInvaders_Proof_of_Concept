@@ -17,9 +17,21 @@ func _process(delta):
 	pass
 
 func new_game():
-	score = 0
+	reset_to_defaults()
 	$HUD.update_score(score)
+	display_level()
+	await get_tree().create_timer(1.0).timeout
 	$Player.start($StartingPosition.position)
+	spawn_enemies(3, $EnemySpawnStart.position)
+	
+func next_level(): 
+	print("Next level")
+	total_enemy_count = 0
+	level += 1
+	
+	display_level()
+	await get_tree().create_timer(1.0).timeout
+	
 	spawn_enemies(3, $EnemySpawnStart.position)
 
 
@@ -40,12 +52,14 @@ func spawn_enemies(rows, start_position):
 			var enemy_position = Vector2()
 			enemy_position.y = start_position.y
 			enemy_position.x = start_position.x + 90 * ii
-			enemy.spawn_enemy(enemy_position, level)
+			enemy.spawn_enemy(enemy_position, level, $StartingPosition.position.y)
 			if (!enemy.destroyed.is_connected(_on_enemy_destroyed)):
 				#Connect signal from enemy
 				enemy.destroyed.connect(_on_enemy_destroyed)
 			if (!enemy.change_direction.is_connected(_on_enemy_change_direction)):
 				enemy.change_direction.connect(_on_enemy_change_direction)
+			if (!enemy.bottom_reached.is_connected(game_over)):
+				enemy.bottom_reached.connect(game_over)
 			add_child(enemy)
 			enemy_count += 1
 		
@@ -54,12 +68,13 @@ func spawn_enemies(rows, start_position):
 
 func _on_enemy_destroyed():
 	score += 5
+	$HUD.update_score(score)
 	enemy_count -= 1
 	if enemy_count > 0:
 		get_tree().call_group_flags(2,"Enemies", "increment_speed", total_enemy_count, enemy_count)
-	$HUD.update_score(score)
-	
-	
+	else:
+		next_level()
+
 func _on_enemy_change_direction():
 	#print($DirectionTimer.get_time_left())
 	if $DirectionTimer.is_stopped():
@@ -73,3 +88,12 @@ func _on_hud_start_game():
 	$HUD.show_message("Get Ready")
 	await get_tree().create_timer(1.0).timeout
 	new_game() 
+
+func display_level():
+	var level_display = "Level " + str(level)
+	$HUD.show_message(level_display)
+
+func reset_to_defaults():
+	score = 0
+	enemy_count = 0
+	level = 1

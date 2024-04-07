@@ -6,9 +6,11 @@ var screen_size
 var rng = RandomNumberGenerator.new()
 var rng_multiplier
 var projectile = preload("res://Scenes/enemy_projectile.tscn")
+var bottom_y
 
 signal change_direction
 signal destroyed
+signal bottom_reached
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -27,11 +29,15 @@ func _physics_process(delta):
 	position.x += speed * direction * delta
 	
 	var unclamped_x_position = position.x
+	var unclamped_y_position = position.y
 	
 	position = position.clamp(minBuffer, maxBuffer)
 	
 	if position.x + (speed * direction * delta) >= maxBuffer.x or position.x + (speed * direction * delta) <= minBuffer.x:
 		change_direction.emit()
+		
+	if unclamped_y_position >= bottom_y:
+		bottom_reached.emit()
 	
 	var number = rng.randi_range(0, 1000 / rng_multiplier)
 	
@@ -43,10 +49,11 @@ func _on_change_direction():
 	direction = -direction
 	position.y += 20
 	
-func spawn_enemy(pos, level):
+func spawn_enemy(pos, level, y_level):
 	position = pos
 	rng_multiplier = level
-	speed = level * 100
+	speed = level * 50
+	bottom_y = y_level
 	show()
 	$CollisionShape2D.disabled = false
 	
