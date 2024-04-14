@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://chjka32bbqw2"]
+[gd_scene load_steps=10 format=3 uid="uid://chjka32bbqw2"]
 
 [ext_resource type="PackedScene" uid="uid://cdf2407wdosc0" path="res://Scenes/player.tscn" id="1_avii2"]
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_ffe1r"]
 [ext_resource type="PackedScene" uid="uid://r3xextu2eejk" path="res://Scenes/projectile_friendly.tscn" id="2_a5j7d"]
 [ext_resource type="PackedScene" uid="uid://b6rbkk24oxijj" path="res://Scenes/enemy.tscn" id="3_1borl"]
 [ext_resource type="PackedScene" uid="uid://c84nvv6abi1gl" path="res://Scenes/hud.tscn" id="5_bby64"]
+[ext_resource type="AudioStream" uid="uid://ce5sx0ffm04uh" path="res://Sounds/Opening_Sound.wav" id="6_xci31"]
+[ext_resource type="AudioStream" uid="uid://cjab84pljk18b" path="res://Sounds/Game_Play.wav" id="7_8ht5e"]
+[ext_resource type="AudioStream" uid="uid://b7kwu1w3pccai" path="res://Sounds/Game_Over.wav" id="8_0qcrj"]
+[ext_resource type="AudioStream" uid="uid://b8my01tow3y02" path="res://Sounds/Next_Level.wav" id="9_6nau5"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_ffe1r")
@@ -23,6 +27,20 @@ position = Vector2(35, 35)
 wait_time = 0.1
 
 [node name="HUD" parent="." instance=ExtResource("5_bby64")]
+
+[node name="Menu" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_xci31")
+autoplay = true
+
+[node name="InGame" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_8ht5e")
+volume_db = 20.0
+
+[node name="GameOver" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_0qcrj")
+
+[node name="LevelUp" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_6nau5")
 
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]

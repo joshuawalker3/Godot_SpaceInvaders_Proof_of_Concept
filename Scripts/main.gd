@@ -10,13 +10,15 @@ var level = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	$Menu.play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
 func new_game():
+	$Menu.stop()
+	$InGame.play()
 	reset_to_defaults()
 	$HUD.update_score(score)
 	display_level()
@@ -25,14 +27,20 @@ func new_game():
 	spawn_enemies(3, $EnemySpawnStart.position)
 	
 func next_level(): 
+	$InGame.stop()
+	$LevelUp.play()
+	$Player.set_player_shoot(false)
+	
 	print("Next level")
 	total_enemy_count = 0
 	level += 1
 	
 	display_level()
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(2.08).timeout
 	
+	$Player.set_player_shoot(true)
 	spawn_enemies(3, $EnemySpawnStart.position)
+	$InGame.play()
 
 
 func game_over():
@@ -40,9 +48,12 @@ func game_over():
 	$Player.disable_shoot()
 	get_tree().call_group_flags(1,"Enemies", "pause_movement")
 	get_tree().call_group_flags(1,"friendly_projectiles", "queue_free")
-	await get_tree().create_timer(1.0).timeout
+	$InGame.stop()
+	$GameOver.play()
+	await get_tree().create_timer(2.71).timeout
 	get_tree().call_group_flags(1,"Enemies", "queue_free")
 	$HUD.show_game_over()
+	$Menu.play()
 	
 
 func spawn_enemies(rows, start_position):

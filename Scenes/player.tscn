@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cdf2407wdosc0"]
+[gd_scene load_steps=7 format=3 uid="uid://cdf2407wdosc0"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_0tg83"]
 [ext_resource type="Texture2D" uid="uid://dnl2qjuje8qya" path="res://Assets/friendly firefly.png" id="2_6ik55"]
+[ext_resource type="AudioStream" uid="uid://dgfu75uaxhyik" path="res://Sounds/Player_Shoot.wav" id="3_ue12k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r6x5u"]
 size = Vector2(64, 64)
@@ -39,6 +40,9 @@ shape = SubResource("RectangleShape2D_6r20e")
 [node name="HitTimer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
+
+[node name="PlayerShot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ue12k")
 
 [connection signal="shoot" from="." to="." method="_on_player_shoot"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

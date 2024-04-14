@@ -43,6 +43,7 @@ func _physics_process(delta):
 	
 	if (number == 50 and !$RayCast2D.is_colliding() and $ShotTimer.get_time_left() == 0):
 		shoot_projectile()
+		$EnemyShot.play()
 		$ShotTimer.start()
 
 func _on_change_direction():

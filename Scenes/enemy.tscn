@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b6rbkk24oxijj"]
+[gd_scene load_steps=7 format=3 uid="uid://b6rbkk24oxijj"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_jaduo"]
 [ext_resource type="Texture2D" uid="uid://b02pnty4ekg6" path="res://Assets/enemy fly.png" id="2_fo063"]
+[ext_resource type="AudioStream" uid="uid://mbiuyvlkpg2e" path="res://Sounds/Enemy_Shoot.wav" id="3_7eplx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mucqw"]
 size = Vector2(64, 64)
@@ -41,5 +42,9 @@ target_position = Vector2(0, 100)
 
 [node name="ShotTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="EnemyShot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_7eplx")
+volume_db = 10.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
